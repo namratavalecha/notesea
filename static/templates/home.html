@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="note-container" style="width:400px; margin: 0 auto;">
+{% if user.is_authenticated %}
+  <h2>Hi {{ user.username }}!</h2>
+  <h2>Welcome to Note Sea</h2>
+
+<a href="{% url 'notes:create-note' %}" class="btn btn-primary btn-lg active" role="button">Create a new note!</a>
+</div>
+{% else %}
+<div class="note-container" style="width:400px; margin: 0 auto;">
+  <h2>You are not logged in</h2>
+  <a href="{% url 'login' %}"><h2>Login</h2></a>
+  </div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% include 'sidebar.html' %}
+
+<div class = "note-container">
+		<h2></h2>
+		<form method="post">
+			{% csrf_token %}
+			{{ form|crispy }}
+			<div>
+			<input type='hidden' id='noteid' value='0' >
+			<button style="float:left;" type="submit">Save</button>
+			<button id="triggerEvent" data-target="#myModal" style="float:right;" class="btn-danger">Delete</button>
+			</div>
+		</form>
+
+</div>
+
+<!-- Modal HTML -->
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">&#xE5CD;</i>
+				</div>				
+				<h4 class="modal-title">Are you sure?</h4>	
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p>Do you really want to delete this note? This process cannot be undone.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+				<button id="newBtn" type="button" class="btn btn-danger" data-href="{% url 'notes:delete-note' id=current_id %}">Delete</button>
+			</div>
+		</div>
+	</div>
+</div> 
+{% endblock content %}
+
+

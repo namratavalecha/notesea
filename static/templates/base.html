@@ -1,0 +1,246 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<html lang="en">
+<head>
+<title>Notes</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% block extra_head %}
+{% endblock %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- <script>
+$(document).ready(function(){
+    $.get("{% url 'notes:note_list_api' user_id=user.id %}", function(data){
+    	return data;
+    })
+});
+</script> -->
+<style type="text/css">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Exo', sans-serif;
+}
+html, body {
+  height: 100vh;
+  width: 100%;
+  background: #efefef;
+}
+#main-container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 40px;
+}
+.note-container {
+  display: flex;
+  margin-right: 40px;
+  flex-direction: column;
+  width: 550px;
+  height: 100vh;
+  margin-top: 60px !important;
+  /*z-index: -1;*/
+}
+  #new-note-title {
+    height: 35px;
+    margin: 32px 0 24px 0;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #333;
+  }
+  #new-note-content {
+    padding: 10px 5px;
+    border-radius: 5px;
+    border: 1px solid #333;
+  }
+}
+h1 {
+  margin-top: 32px;
+}
+#side-bar {
+  background: #333;
+  width: 350px;
+  height: 100vh;
+  margin-right: 30px;
+  overflow: scroll;
+  margin-top: 50px !important;
+}
+.stored-notes {
+  color: #efefef;
+  border: 1px solid #777;
+  padding:15px 10px;
+  height: 70px !important;
+}
+
+
+#create-a-note {
+    font-weight: bold;
+    text-align: center;
+    padding: 20px 5px;
+    background: rgba(45,255,255,0.2)
+  }
+button {
+  width: 200px;
+  height: 50px;
+  display: block;
+  margin-top: 24px;
+  border-radius: 5px;
+  background: teal;
+  color: #fff;
+  font-size: 18px;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  background-color: #333333;
+  color: white;
+  text-align: center;
+}
+
+.modal-confirm {    
+    color: #636363;
+    width: 400px;
+  }
+  .modal-confirm .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+        text-align: center;
+    font-size: 14px;
+  }
+  .modal-confirm .modal-header {
+    border-bottom: none;   
+        position: relative;
+  }
+  .modal-confirm h4 {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -10px;
+  }
+  .modal-confirm .close {
+        position: absolute;
+    top: -5px;
+    right: -2px;
+  }
+  .modal-confirm .modal-body {
+    color: #999;
+  }
+  .modal-confirm .modal-footer {
+    border: none;
+    text-align: center;   
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 10px 15px 25px;
+  }
+  .modal-confirm .modal-footer a {
+    color: #999;
+  }   
+  .modal-confirm .icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    z-index: 9;
+    text-align: center;
+    border: 3px solid #f15e5e;
+  }
+  .modal-confirm .icon-box i {
+    color: #f15e5e;
+    font-size: 46px;
+    display: inline-block;
+    margin-top: 13px;
+  }
+    .modal-confirm .btn {
+        color: #fff;
+        border-radius: 4px;
+    background: #60c7c1;
+    text-decoration: none;
+    transition: all 0.4s;
+        line-height: normal;
+    min-width: 120px;
+        border: none;
+    min-height: 40px;
+    border-radius: 3px;
+    margin: 0 5px;
+    outline: none !important;
+    }
+  .modal-confirm .btn-info {
+        background: #c1c1c1;
+    }
+    .modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
+        background: #a8a8a8;
+    }
+    .modal-confirm .btn-danger {
+        background: #f15e5e;
+    }
+    .modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+        background: #ee3535;
+    }
+  .trigger-btn {
+    display: inline-block;
+    margin: 100px auto;
+  }
+
+  .btn {
+    width: 200px;
+    margin:10px;
+  }
+</style>
+</head>
+
+
+<body>
+{% include 'navbar.html' %}
+
+
+<div id = "main-container">
+	{% block extra_scripts %}
+  {% endblock extra_scripts %}
+
+  {% block content %}
+  {% endblock content %}
+
+
+</div>
+{% include "footer.html" %}
+</body>
+</html>
+
+<script type="text/javascript">
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue =   decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+</script>

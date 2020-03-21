@@ -1,0 +1,44 @@
+{% include 'base.html' %}
+
+{% block extra_head %}
+<style type="text/css">
+  .signup {
+  display: flex;
+  flex-direction: column;
+  width: 650px;
+  height: 100vh;
+  margin-top: 80px !important;
+  margin: auto;
+  margin-bottom: 40px;
+  }
+  label {
+    margin: 5px;
+  }
+</style>
+
+{% endblock extra_head %}
+{% block content %}
+
+<div class="signup">
+<h2>Sign up Form</h2>
+<form method="post">
+  {% csrf_token %}
+  {% for field in form %}
+    <p>
+      {{ field.label_tag }}<br>
+      {{ field }}
+      {% if field.help_text %}
+        <small style="color: grey">{{ field.help_text }}</small>
+      {% endif %}
+      {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </p>
+  {% endfor %}
+  <button type="submit">Sign up</button>
+</form>
+</div>
+
+
+
+{% endblock %}

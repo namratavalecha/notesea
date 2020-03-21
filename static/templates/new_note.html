@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% include 'sidebar.html' %}
+<div class = "note-container">
+		<h2>Create New Note</h2>
+		<form method="post">
+			{% csrf_token %}
+			{{ form|crispy }}
+			<button type="submit">Submit Note</button>
+		</form>
+</div>
+{% endblock content %}

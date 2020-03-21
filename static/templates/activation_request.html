@@ -1,0 +1,8 @@
+{% autoescape on %}
+
+Hi {{ user.username }},
+
+Please click the following link to confirm your registration:
+
+http://{{ domain }}{% url 'notes:activate' uidb64=uid token=token %}
+{% endautoescape %}

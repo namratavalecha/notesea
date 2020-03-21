@@ -1,0 +1,128 @@
+{% block extra_head %}
+<style type="text/css">
+#note-title {
+    font-size: 20px;
+    margin: 0px 0px !important;
+  }
+
+#note-content {
+    font-size: 16px;
+    margin: 0px 0px;
+  }
+  .search-bar{
+    max-width: 500px;
+    width: 90%;
+    margin:auto;
+  }
+</style>
+
+{% endblock extra_head %}
+
+
+<div id="side-bar">
+		<div id="create-a-note" class="stored-notes">
+            <div class="search-bar">
+                <form method="get">
+                    <input type="text" class="form-control" name="q" id="id_q" placeholder="Search...">
+                </form>
+            </div>
+		</div>
+        {% if notes %}
+		{% for note in notes %}
+		<div class = "stored-notes">
+			<span style="float:right;margin:5px;font-size:18px;" title="Delete" class="delete glyphicon glyphicon glyphicon-trash" data-href="{% url 'notes:delete-note' id=note.id %}"></span>
+			{% if note.pinned %}
+			<span style="float:right;margin:5px;font-size:18px;" title="Remove Pin" class="change_pin glyphicon glyphicon glyphicon-pushpin" data-href="{% url 'notes:change_pin' id=note.id %}"></span>
+			{% else %}
+			<span style="float:right;margin:5px;font-size:18px;" title="Pin to top" class="change_pin glyphicon glyphicon glyphicon-arrow-up" data-href="{% url 'notes:change_pin' id=note.id %}"></span>
+			
+			{% endif %}
+			
+			{% if note.title %}
+			<a href="{% url 'notes:edit' id=note.id %}"><h2 id="note-title">{{ note.title }}</h2></a>
+			{% else %}
+			<a href="{% url 'notes:edit' id=note.id %}"><h2 id="note-title">Note</h2></a>
+            {% endif %}
+			<p id="note-content">{{ note.content|slice:40 }}</p>
+			
+
+
+			
+			<!-- <a href="#"><h2>Hello World</h2></a>
+			<p>You did it</p> -->
+		</div>
+		{% endfor %}
+        {% else %}
+<div class = "stored-notes">
+    <h2 id="note-title" style="text-align:center">No notes found!</h2>
+</div>
+
+        {% endif %}
+	</div>
+
+
+{% block extra_scripts %}
+<script type="text/javascript">
+
+	$('.delete').click( function() {
+	var postData = {csrfmiddlewaretoken: '{{ csrf_token }}'}
+    $.ajax({
+             url : $(this).attr("data-href"),
+             type: 'DELETE',
+             dataType: "json",
+             data: postData,
+             success: function (data, textStatus, xhr) {  
+                         console.log(data);
+                         location.reload();  
+                     },  
+                     error: function (xhr, textStatus, errorThrown) {  
+                         console.log('Error in Operation');  
+                     }
+                 });
+             });
+
+	$('.change_pin').click( function() {
+	var postData = {csrfmiddlewaretoken: '{{ csrf_token }}'}
+    $.ajax({
+             url : $(this).attr("data-href"),
+             type: 'POST',
+             dataType: "json",
+             data: postData,
+             success: function (data, textStatus, xhr) {  
+                         console.log(data);
+                         location.reload();  
+                     },  
+                     error: function (xhr, textStatus, errorThrown) {  
+                         console.log('Error in Operation');  
+                     }
+                 });
+             });
+$(document).ready(function(){
+$('#triggerEvent').click(function(e) {
+        e.preventDefault();
+        $('#myModal').modal();
+    });
+ $("#newBtn").on("click",function(){
+ var postData = {csrfmiddlewaretoken: '{{ csrf_token }}'}
+    $.ajax({
+             url : $(this).attr("data-href"),
+             type: 'DELETE',
+             dataType: "json",
+             data: postData,
+             success: function (data, textStatus, xhr) {  
+                         console.log(data);
+                         location.reload();  
+                     },  
+                     error: function (xhr, textStatus, errorThrown) {  
+                         console.log('Error in Operation');  
+                     }
+                 });
+ })
+});
+
+
+document.getElementById("id_q").value = "{{ query }}"
+
+</script>
+
+{% endblock extra_scripts %}

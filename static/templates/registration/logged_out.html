@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="note-container" style="width:400px; margin: 0 auto;">
+<h2>You are logged out!</h2>
+<a  href="{% url 'login' %}"><h3>Log in again</h3></a>
+</div>
+{% endblock %}
