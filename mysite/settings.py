@@ -156,6 +156,7 @@ EMAIL_BACKEND = 'sgbackend.SendGridBackend'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'notes:create-note'
+LOGIN_URL = 'login'
 
 
 django_heroku.settings(locals())

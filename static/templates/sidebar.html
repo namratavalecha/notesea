@@ -43,7 +43,7 @@
 			{% else %}
 			<a href="{% url 'notes:edit' id=note.id %}"><h2 id="note-title">Note</h2></a>
             {% endif %}
-			<p id="note-content">{{ note.content|slice:40 }}</p>
+			<p id="note-content">{{ note.content|slice:30 }}</p>
 			
 
 
