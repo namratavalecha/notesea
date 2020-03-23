@@ -5,7 +5,7 @@
     <div class="note-container" style="width:400px; margin: 0 auto;">
         <div class="card">
 <div class="card-body">
-<h4 class="card-title">Log in to your account</h4><form method="post">
+<h2 class="card-title">Log in to your account</h2><form method="post">
 {% csrf_token %}
 <input type="hidden" name="next" value="{{ next }}">{{ form|crispy }}
 <a href="{% url 'password_reset' %}"><p>Forgot password?</p></a>

@@ -228,6 +228,7 @@ def get_note_queryset(user, query = None):
             Q(title__icontains=q) |
             Q(content__icontains=q)
             ).distinct().order_by('-pinned', '-created')
-        for note in notes:
-            queryset.append(note)
-    return list(set(queryset))
+#         for note in notes:
+#             queryset.append(note)
+#     return list(set(queryset))
+    return notes

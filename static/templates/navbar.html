@@ -1,25 +1,18 @@
-<nav class="navbar navbar-fixed-top navbar-inverse">
-    <div class="container-fluid">
-    <div class="navbar-header">
-    <a class="navbar-brand glyphicon glyphicon-list-alt">
-    </a>
-  </div>
-  <ul class="nav navbar-nav">
-    <li><a class="navbar-brand" href="/">
-    <strong>Note Sea</strong>
-  </a></li>
+<nav class="navbar navbar-fixed-top navbar-expand-md navbar-inverse">
+  <div class="topnav" id="myTopnav">
+  <a href="/" class="active">NoteSea</a>
   {% if request.user.is_authenticated %}
-  <li><a href="{% url 'notes:create-note' %}"><span class="glyphicon glyphicon-plus"></span>&nbsp; Create new note</a></li>
-  {% endif %}
-  </ul>
-  <ul class="nav navbar-nav navbar-right">
-  {% if request.user.is_authenticated %}
-  <li><a href="{% url 'password_change' %}"><span class="glyphicon glyphicon-user"></span>&nbsp; Change password</a></li>
-  <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span>&nbsp; Logout</a></li>
+  
+  <a style="float:right;" href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span>&nbsp; Logout</a>
+  <a style="float:right;" href="{% url 'password_change' %}"><span class="glyphicon glyphicon-user"></span>&nbsp; Change password</a>
+  <a style="float:right;" href="{% url 'notes:create-note' %}"><span class="glyphicon glyphicon-plus"></span>&nbsp; Create new note</a>
   {% else %}
-      <li><a href="{% url 'notes:signup' %}"><span class="glyphicon glyphicon-user"></span>&nbsp; Sign Up</a></li>
-      <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span>&nbsp; Login</a></li>
+      <a style="float:right;" href="{% url 'notes:signup' %}"><span class="glyphicon glyphicon-user"></span>&nbsp; Sign Up</a>
+      <a style="float:right;" href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span>&nbsp; Login</a>
     {% endif %}
-    </ul>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <span class="glyphicon glyphicon-th-list"></span>
+  </a>
   </div>
+
 </nav>
