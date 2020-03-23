@@ -2,15 +2,7 @@
 
 {% block extra_head %}
 <style type="text/css">
-  .signup {
-  display: flex;
-  flex-direction: column;
-  width: 650px;
-  height: 100vh;
-  margin-top: 80px !important;
-  margin: auto;
-  margin-bottom: 80px;
-  }
+
   label {
     margin: 5px;
   }
@@ -19,8 +11,10 @@
 {% endblock extra_head %}
 {% block content %}
 
-<div class="note-container signup">
-<h2>Sign up Form</h2>
+    <div class="note-container" style="width:400px; margin: 0 auto;">
+        <div class="card">
+<div class="card-body">
+<h2 class="card-title">Sign up Form</h2>
 <form method="post">
   {% csrf_token %}
   {% for field in form %}
@@ -37,6 +31,8 @@
   {% endfor %}
   <button type="submit">Sign up</button>
 </form>
+</div>
+</div>
 </div>
 
 
