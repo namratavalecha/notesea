@@ -14,13 +14,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<!-- <script>
-$(document).ready(function(){
-    $.get("{% url 'notes:note_list_api' user_id=user.id %}", function(data){
-    	return data;
-    })
-});
-</script> -->
+
 <style type="text/css">
 * {
   margin: 0;
@@ -282,7 +276,6 @@ footer {
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
             var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
             if (cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue =   decodeURIComponent(cookie.substring(name.length + 1));
                 break;
@@ -293,7 +286,6 @@ footer {
 }
 var csrftoken = getCookie('csrftoken');
 function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 $.ajaxSetup({

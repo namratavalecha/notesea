@@ -25,9 +25,3 @@ class NoteForm(forms.ModelForm):
         model = Note
         fields = ('title', 'content', 'pinned', )
 
-
-# class ImageForm(forms.ModelForm):
-#     image = forms.ImageField(label='Image')    
-#     class Meta:
-#         model = Images
-#         fields = ('image', )

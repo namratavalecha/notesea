@@ -12,7 +12,6 @@ from django.template.loader import render_to_string, get_template
 from django.conf import settings
 from django.core.mail import send_mail
 from sendgrid import SendGridAPIClient
-# from sendgrid.helpers.mail import Mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from rest_framework import serializers
@@ -83,14 +82,8 @@ def signup_view(request):
             to_email = [user.profile.email]
             plain_text_content = render_to_string('activation_request.html', context)
             print(plain_text_content)
-            # mail = Mail(from_email=from_email, to_emails=to_email, subject=subject, plain_text_content= plain_text_content)
             try:
 		send_mail(subject, plain_text_content, from_email, to_email)
-            	# sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
-            	# response = sg.send(mail)
-            	# print(response.status_code)
-            	# print(response.body)
-            	# print(response.headers)
             except Exception as e:
             	print(e.message)
             return redirect('notes:activation_sent')
@@ -122,7 +115,6 @@ class NewNoteView(LoginRequiredMixin, View):
                 notes = get_note_queryset(user, str(query))
             else:
                 notes = Note.objects.filter(user = user).order_by('-pinned', '-created')
-            # print(notes)
             noteForm = NoteForm()
             return render(request, 'new_note.html', {'notes': notes, 'form': noteForm})
         else:
@@ -184,7 +176,6 @@ def detail_view(request, id):
             notes = get_note_queryset(user, str(query))
         else:
             notes = Note.objects.filter(user = user).order_by('-pinned', '-created')
-        # notes = Note.objects.filter(user = user).order_by('-pinned', '-created')
         current_note = Note.objects.filter(id=id)
         if current_note.exists():
             return render(request, 'detail.html', {'notes': notes, 'current_note': current_note[0]})
@@ -205,7 +196,6 @@ def edit_view(request, id):
             notes = get_note_queryset(user, str(query))
         else:
             notes = Note.objects.filter(user = user).order_by('-pinned', '-created')
-        # notes = Note.objects.filter(user = user).order_by('-pinned', '-created')
         current_note = Note.objects.filter(id=id)
         if current_note.exists():
             instance = get_object_or_404(Note, id=id)
@@ -219,16 +209,11 @@ def edit_view(request, id):
 
 
 def get_note_queryset(user, query = None):
-    # print(query)
     queryset = []
     queries = query.split(" ")
-    # print(queries)
     for q in queries:
         notes = Note.objects.filter(user=user).filter(
             Q(title__icontains=q) |
             Q(content__icontains=q)
             ).distinct().order_by('-pinned', '-created')
-#         for note in notes:
-#             queryset.append(note)
-#     return list(set(queryset))
     return notes
